@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ConfirmedFilter = props =>
 
 <div>
-  <h2>Invite</h2>
+  <h2>Tasks Todo Apps</h2>
   <label>
     <input 
     type="checkbox" 

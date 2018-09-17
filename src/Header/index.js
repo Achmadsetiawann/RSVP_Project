@@ -6,7 +6,7 @@ const Header = props =>
 
 <header>
   <h1>RSVP</h1>
-  <p>A Treehouse App</p>
+  <p> Tasks  Todo Apps </p>
   <GuestInputForm
       newGuestSubmitHandler= {props.newGuestSubmitHandler}
       pendingGuest= {props.pendingGuest}
@@ -15,9 +15,9 @@ const Header = props =>
 </header>;
 
 Header.propTypes= {
-  newGuestSubmitHandler: PropTypes.fun.isRequired,
+  newGuestSubmitHandler: PropTypes.func.isRequired,
   pendingGuest: PropTypes.string.isRequired,
-  handleNameInput: PropTypes.fun.isRequired
+  handleNameInput: PropTypes.func.isRequired
 };
 
 export default Header;

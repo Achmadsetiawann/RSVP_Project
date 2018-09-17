@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import GuestList from './GuestList';
-import Counter from './Counter';
-import Header from './Header';
-import MainContent from './MainContent';
+import GuestList from './MainContent/GuestList/index';
+import Counter from './MainContent/Counter';
+
 
 
 class App extends Component {
@@ -12,29 +11,21 @@ class App extends Component {
     isFiltered: false,
     pendingGuest: " ",
     guests: 
-    [
-      {
-        name: 'Setiawan Achmad',
-        isConfirmed: true,
-        isEditing: false
-      },
-      {
-        name: 'Achmad Setiawan',
-        isConfirmed: false,
-        isEditing: false
-      },
-      {
-        name: 'Fransiska Maharani',
-        isConfirmed: false,
-        isEditing: false
-      }
-    ]
+    [ ]
   };
 
-  toggleGuestPropertyAt = (property, indexToChange) => 
+  lastGuestId = 0;
+
+  newGuestId = () => {
+    const id = this.lastGuestId;
+    this.lastGuestId += 1;
+    return id;
+  };
+
+  toggleGuestPropertyAt = (property, id) => 
     this.setState({
-      guests: this.state.guests.map((guest, index) =>{
-        if (index === indexToChange){
+      guests: this.state.guests.map(guest =>{
+        if (id === guest.id){
           return{
             ...guest,
             [property]: !guest[property]
@@ -44,25 +35,25 @@ class App extends Component {
       })
     });
 
-  toggleConfirmationAt = index =>
-    this.toggleGuestPropertyAt("isConfirmed", index);
+  toggleConfirmationAt = id =>
+    this.toggleGuestPropertyAt("isConfirmed", id);
 
-  removeGuestAt = index =>
+  removeGuestAt = id =>
     this.setState({
       guests: 
       [
-        ...this.state.guests.slice(0, index),
-        ...this.state.guests.slice(index +1)
+        ...this.state.guests.slice(0, id),
+        ...this.state.guests.slice(id +1)
       ]
     });
 
-  toggleEditingtionAt = index =>
-    this.toggleGuestPropertyAt("isEditing", index);
+  toggleEditingtionAt = id =>
+    this.toggleGuestPropertyAt("isEditing", id);
 
-  setNameAt = (name, indexToChange) => 
+  setNameAt = (name, id) => 
     this.setState({
-      guests: this.state.guests.map((guest, index) =>{
-        if (index === indexToChange){
+      guests: this.state.guests.map(guest =>{
+        if (id === guest.id){
           return{
             ...guest,
             name
@@ -80,13 +71,15 @@ class App extends Component {
 
   newGuestSubmitHandler = e =>{
     e.preventDefault();
+    const id =this.newGuestId();
     this.setState({
       guests: 
       [
         {
         name: this.state.pendingGuest,
         isConfirmed: false,
-        isEditing: false
+        isEditing: false,
+        id
         },
         ...this.state.guests
       ],
@@ -109,20 +102,20 @@ class App extends Component {
       <div className="App">
       <header>
         <h1>RSVP</h1>
-        <p>A Treehouse App</p>
+        <p>Todo Apps</p>
         <form onSubmit= {this.newGuestSubmitHandler}>
             <input
               type="text" 
               onChange={this.handleNameInput}
               value={this.state.pendingGuest}
-              placeholder="Invite Someone" 
+              placeholder="Write Activity" 
             />
             <button type="submit" name="submit" value="submit">Submit</button>
         </form>
       </header>
       <div className="main">
         <div>
-          <h2>Invite</h2>
+          <h2> Tasks Todo Apps </h2>
           <label>
             <input 
               type="checkbox" 
